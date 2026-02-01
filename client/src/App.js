@@ -1,12 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import Nav from "./components/Nav";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <div className="bg-indigo-950 min-h-screen font-['Carme']">
+      <Nav></Nav>
     </div>
   );
 }
