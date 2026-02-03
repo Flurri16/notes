@@ -25,11 +25,6 @@ app.post('/api/register', register);
 app.post('/api/login', login);
 
 app.get('/', chechAuth, getMe)
-app.get('/api/notes', chechAuth, getNotes)
-app.get('/api/notes/count', chechAuth, getNotesCount)
-app.get('/api/characters', chechAuth, getAllCharacters)
-app.post('/api/create-note', chechAuth, createNote)
-app.post('/api/notes/add-character', chechAuth, addCharacterToNote)
 
 app.listen(4999, () => {
     console.log('Server started on port 4999');
