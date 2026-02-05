@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { getMe, login, register } from './logic/auth.js';
 import { chechAuth } from './logic/checkAuth.js';
-import { addCharacterToNote, createNote, getAllCharacters, getNotes, getNotesCount } from './logic/note.js';
+import { createNote } from './logic/note.js';
 
 dotenv.config();
 const app = express();
@@ -23,13 +23,9 @@ async function start() {
 
 app.post('/api/register', register);
 app.post('/api/login', login);
+app.get('/api/me', chechAuth, getMe)
 
-app.get('/', chechAuth, getMe)
-app.get('/api/notes', chechAuth, getNotes)
-app.get('/api/notes/count', chechAuth, getNotesCount)
-app.get('/api/characters', chechAuth, getAllCharacters)
 app.post('/api/create-note', chechAuth, createNote)
-app.post('/api/notes/add-character', chechAuth, addCharacterToNote)
 
 app.listen(4999, () => {
     console.log('Server started on port 4999');

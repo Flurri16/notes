@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 export const register = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(req.body)
     const candidate = await UserModel.findOne({ email });
     if (candidate) {
       return res.status(400).json({ message: 'User already exists' });
@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
     const token = jwt.sign(
       { _id: newUser._id },
-      'secret123',
+      process.env.JWT_SECRET,
       { expiresIn: '30d' }
     );
 
@@ -29,7 +29,8 @@ export const register = async (req, res) => {
 
     return res.status(200).json({
       message: 'Registration successful',
-      token
+      token,
+      email: newUser.email
     });
   } catch (err) {
     console.log(err);
@@ -48,7 +49,7 @@ export const login = async (req, res) => {
         if(!isPAsswordCorrect) {
             return res.status(400).json({message: 'Invalid password'})
         }
-        const token = jwt.sign({_id: user._id}, 'secret123', {expiresIn: '30d'})
+        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
 
         return res.status(200).json({user, message: 'Login successful', token})
     } catch(err) {
@@ -62,7 +63,7 @@ export const getMe = async (req, res) => {
         if(!user) {
             return res.status(400).json({message: 'User not found'})
         }
-        return res.status(200).json({user, message: 'User found'})
+        return res.status(200).json({user})
     } catch(err) {
         console.log(err)
         return res.status(500).json({message: 'No access'})

@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const NoteModel = mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
     text: {
         type: String,
         required: true
