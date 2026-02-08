@@ -46,3 +46,22 @@ export const getNotes = async (req, res) => {
         return res.status(500).json({message: 'Failed to get notes/ No login'})
     }
 }
+export const deleteNote = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const note = await NoteModel.findById(id);
+        if(!note) {
+            return res.status(400).json({message: 'Note not found'})
+        }
+        await NoteModel.findByIdAndDelete(id);
+        await UserModel.findByIdAndUpdate(req.userId, {
+            $pull: {
+                notes: id
+            }
+        })
+        return res.status(200).json({message: 'Note deleted successfully'})
+    } catch(err) {
+        console.log(err)
+        return res.status(500).json({message: 'Failed to delete note'})
+    }
+}

@@ -33,7 +33,12 @@ export default function Main({ note }) {
             setIsImportant(note.isImportant || false);
         }
     }, [note]);
-    
+    const clearHandler = () => {
+        setTitle('');
+        setText('');
+        setMood('');
+        setIsImportant(false);
+    }
     return (
         <div className='bg-indigo-800 flex flex-col justify-between mx-4 px-4 my-4 md:w-[55%] md:mx-auto'>
             <div className="flex justify-between my-2">
@@ -53,11 +58,11 @@ export default function Main({ note }) {
             </select>
             <div className="flex items-center my-4">
                 <h1 className='text-xl md:text-3xl text-white'>Is this day important for you? 🤨</h1>
-                <input type="checkbox" className='w-5 h-5 ml-4 accent-indigo-500' onChange={e => setIsImportant(e.target.checked)} value={isImportant} />
+                <input type="checkbox" className='w-5 h-5 ml-4 accent-indigo-500' onChange={e => setIsImportant(e.target.checked)} checked={isImportant} />
             </div>
             <div className="flex gap-10 pb-4">
-                <button className='bg-red-500 text-white text-xl md:text-3xl p-2 rounded w-full'>Delete note</button>
-                <button className='bg-indigo-500 text-white text-xl md:text-3xl p-2 rounded w-full'>Clear</button>
+                {/* <button className='bg-red-500 text-white text-xl md:text-3xl p-2 rounded w-full'>Delete note</button> */}
+                <button className='bg-indigo-500 text-white text-xl md:text-3xl p-2 rounded w-full' onClick={clearHandler}>Clear</button>
                 <button className='bg-indigo-600 text-white text-xl md:text-3xl p-2 rounded w-full' onClick={saveHandler}>Save Note</button>
             </div>
         </div>
