@@ -5,6 +5,10 @@ const NoteModel = mongoose.Schema({
         type: String,
         required: true
     },
+    title: {
+        type: String,
+        required: true
+    },
     mood: {
         type: String,
         required: true
